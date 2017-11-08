@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   resources :products, only: [:index, :show]
   resources :categories, only: [:show]
 
+  # Trying to create an API endpoint for cart that allows you
+  # to add and delete items from the cart *Update(PUT) may be used
   resource :cart, only: [:show] do
     put    :add_item
     delete :remove_item
@@ -12,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create, :show]
 
+  # Resources contain actions
+  # Namespaces contain resources that contain actions
   namespace :admin do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
