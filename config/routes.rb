@@ -3,13 +3,16 @@ Rails.application.routes.draw do
   root to: 'products#index'
 
   resources :products, only: [:index, :show]
+  resources :categories, only: [:show]
+
+  # Signup route
   get '/signup' => 'users#new'
   post '/users' => 'users#create'
+
+  # Login route
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   get '/logout' => 'sessions#destroy'
-
-  resources :categories, only: [:show]
 
   # Trying to create an API endpoint for cart that allows you
   # to add and delete items from the cart *Update(PUT) may be used
