@@ -1,5 +1,7 @@
 class Admin::CategoriesController < ApplicationController
-  # Examine the admin/categorys controller to understand how it is defined and working
+
+  http_basic_authenticate_with name: ENV['AUTH_USERNAME'], password: ENV['AUTH_PASSWORD']
+
   def index
     @categories = Category.order(id: :desc).all
   end

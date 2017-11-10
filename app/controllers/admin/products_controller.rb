@@ -1,5 +1,7 @@
 class Admin::ProductsController < ApplicationController
-  # Examine the admin/products controller to understand how it is defined and working
+
+  http_basic_authenticate_with name: ENV['AUTH_USERNAME'], password: ENV['AUTH_PASSWORD']
+
   def index
     @products = Product.order(id: :desc).all
   end
