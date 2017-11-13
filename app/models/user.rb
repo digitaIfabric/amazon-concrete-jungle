@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   validates :last_name, presence: true
 
   def self.authenticate_with_credentials(email, password)
-    puts "====================== self auth with creds method in user.rb hit ========================================"
     user = User.find_by_email(email)
     if user && user.authenticate(password)
       user
