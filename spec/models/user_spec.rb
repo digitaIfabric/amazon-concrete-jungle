@@ -4,6 +4,7 @@ require 'rails_helper'
 # TEST@TEST.com should not be allowed if test@test.COM
 
 RSpec.describe User, type: :model do
+  describe 'testing -' do
 
     it 'all valid (1)' do
       @user = User.new(first_name: 'David',
@@ -20,7 +21,7 @@ RSpec.describe User, type: :model do
                      email: 'test@test.com',
                      password_digest: '123')
     expect(@user.valid?).to be false
-    # expect(@user.errors.full_messages).to include("Password is too short (minimum is 4 characters)")
+    expect(@user.errors.full_messages).to include("Password is too short (minimum is 4 characters)")
   end
 
     it 'passwords do not match (3)' do
@@ -30,7 +31,7 @@ RSpec.describe User, type: :model do
                        password_digest: 'password',
                        password_confirmation: '123456')
       expect(@user.valid?).to be false
-      expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      expect(@user.errors.full_messages).to include("password confirmation doesn't match password")
     end
 
     it 'case sensitivity for email (4)' do
@@ -46,7 +47,7 @@ RSpec.describe User, type: :model do
                         password_digest: 'password',
                         password_confirmation: 'password')
       expect(@user2.save).to be false
-      expect(@user2.errors.full_messages).to include("Email has already been taken")
+      expect(@user2.errors.full_messages).to include("email has already been taken")
     end
 
     it 'first name is not included (5)' do
@@ -55,7 +56,7 @@ RSpec.describe User, type: :model do
                        password_digest: 'password',
                        password_confirmation: 'password')
       expect(@user.valid?).to be false
-      expect(@user.errors.full_messages).to include("First name can't be blank")
+      expect(@user.errors.full_messages).to include("first name can't be blank")
     end
 
     it 'last name is not included (6)' do
@@ -64,7 +65,7 @@ RSpec.describe User, type: :model do
                        password_digest: 'password',
                        password_confirmation: 'password')
       expect(@user.valid?).to be false
-      expect(@user.errors.full_messages).to include("Last name can't be blank")
+      expect(@user.errors.full_messages).to include("last name can't be blank")
     end
 
     it 'email is not included (7)' do
@@ -73,7 +74,24 @@ RSpec.describe User, type: :model do
                        password_digest: 'password',
                        password_confirmation: 'password')
       expect(@user.valid?).to be false
-      expect(@user.errors.full_messages).to include("Email can't be blank")
+      expect(@user.errors.full_messages).to include("email can't be blank")
     end
+
+  end
+
+  describe '.authenticate_with_credentials' do
+    it 'Valid credentials (8)' do
+      @user = User.new(
+        first_name: 'David',
+        last_name: 'Test',
+        email: 'd@gmail.com',
+        password_digest: 'password',
+        password_confirmation: 'password')
+    @user.save
+    user = User.authenticate_with_credentials(@user.email, @user.password)
+    expect(user?).to be true
+    end
+
+  end
 
 end
