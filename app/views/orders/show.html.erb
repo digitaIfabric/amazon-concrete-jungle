@@ -4,7 +4,6 @@
     <h1>Order #<%= @order.id %></h1>
   </header>
 
-  # Partial not used - already pretty clean
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
     <% @order.line_items.each do |item| %>

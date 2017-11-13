@@ -24,6 +24,34 @@
           <dd><%= @product.price %></dd>
         </dl>
       </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-4">
+      </div>
+
+      <div class="col-sm-8">
+      <% if @product.reviews.count > 0 %>
+          <dl class="dl-horizontal">
+            <dt></dt>
+            <dd><b>REVIEWS</b></dd>
+          </dl>
+            <% @product.reviews.order('created_at DESC').each do |rev| %>
+              <dl class="dl-horizontal">
+                <dt>Rating</dt>
+                <dd><%= rev.rating %></dd>
+                <dt>Description</dt>
+                <dd><%= rev.description %></dd>
+              </dl>
+            <% end %>
+
+      <% end %>
+
+      </div>
+      <div><%= render 'reviews/new' %></div>
+
     </div>
 
   </article>

@@ -29,3 +29,8 @@ class ApplicationController < ActionController::Base
   end
 
 end
+
+# before_filter :authorize, :except => [:index, :show]
+# def authorize
+#   # check if user is logged in
+# end
